@@ -2,13 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
-
-type testWrapper struct {
-	TestCount int
-	testData  test
-}
 
 type test struct {
 	n      int
@@ -20,78 +14,53 @@ type test struct {
 
 func main() {
 
-	tw := testWrapper{}
+	t := test{}
 
-	_, err := fmt.Scanf("%d", &tw.testData.n)
+	_, err := fmt.Scanf("%d", &t.n)
 	if err != nil {
 		return
 	}
-
-	length := tw.testData.n
-	tw.testData.a = make([]int, length)
-	for i := 0; i < length; i++ {
-		fmt.Scan(&tw.testData.a[i])
-		if tw.testData.a[i] < 1 && tw.testData.a[i] > 1000000000 {
-			return
-		}
-	}
-
-	tw.testData.b = make([]int, length)
-	for i := 0; i < length; i++ {
-		fmt.Scan(&tw.testData.b[i])
-		if tw.testData.a[i] < 1 && tw.testData.a[i] > 1000000000 {
-			return
-		}
-	}
-
-	tw.testData.c = make([]int, length)
-	for i := 0; i < length; i++ {
-		fmt.Scan(&tw.testData.c[i])
-		if tw.testData.a[i] < 1 && tw.testData.a[i] > 1000000000 {
-			return
-		}
-	}
-
-	if tw.testData.n < 1 && tw.testData.n > 40000 {
+	if t.n < 1 && t.n > 40000 {
 		return
 	}
 
-	m := map[string]string{}
-	for i := 0; i < tw.testData.n; i++ {
-		for j := 0; j < tw.testData.n; j++ {
-			for k := 0; k < tw.testData.n; k++ {
-				if tw.testData.a[i] == tw.testData.b[j] {
-					if tw.testData.a[i] == tw.testData.b[k] {
-						tw.testData.result++
-					}
-				}
-				s := strconv.Itoa(tw.testData.a[i])
-				s += "," + strconv.Itoa(tw.testData.b[j])
-				s += "," + strconv.Itoa(tw.testData.c[k])
-				if (tw.testData.a[i] != tw.testData.b[j]) && (tw.testData.b[j] != tw.testData.c[k]) && (tw.testData.a[i] != tw.testData.c[k]) {
-					m[s] = s
-				}
-			}
+	t.a = make([]int, t.n)
+	for i := 0; i < t.n; i++ {
+		fmt.Scan(&t.a[i])
+		if t.a[i] < 1 && t.a[i] > 1000000000 {
+			return
 		}
 	}
 
-	if tw.testData.result == 0 {
-		tw.testData.result = len(m)
+	t.b = make([]int, t.n)
+	for i := 0; i < t.n; i++ {
+		fmt.Scan(&t.b[i])
+		if t.a[i] < 1 && t.a[i] > 1000000000 {
+			return
+		}
 	}
 
-	if tw.testData.n == 1 {
-		if tw.testData.a[0] == tw.testData.b[0] {
-			if tw.testData.a[0] == tw.testData.b[0] {
-				tw.testData.result = 0
+	t.c = make([]int, t.n)
+	for i := 0; i < t.n; i++ {
+		fmt.Scan(&t.c[i])
+		if t.a[i] < 1 && t.a[i] > 1000000000 {
+			return
+		}
+	}
+
+	for i := 0; i < t.n; i++ {
+		for j := 0; j < t.n; j++ {
+			if t.a[i] < t.b[j] {
+				for k := 0; k < t.n; k++ {
+					if t.b[j] < t.c[k] {
+						t.result++
+					}
+				}
 			}
 		}
 	}
 
 	fmt.Println("Output:")
-	fmt.Println(tw.testData.result)
-	/*	for k, _ := range m {
-		fmt.Println(k)
-	}*/
-
+	fmt.Println(t.result)
 	return
 }
