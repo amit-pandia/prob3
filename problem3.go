@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 type test struct {
@@ -48,14 +49,25 @@ func main() {
 		}
 	}
 
+	sort.Ints(t.a)
+	sort.Ints(t.b)
+	sort.Ints(t.c)
+
+	jStart := 0
+	kStart := 0
+
 	for i := 0; i < t.n; i++ {
-		for j := 0; j < t.n; j++ {
+		for j := jStart; j < t.n; j++ {
 			if t.a[i] < t.b[j] {
-				for k := 0; k < t.n; k++ {
+				for k := kStart; k < t.n; k++ {
 					if t.b[j] < t.c[k] {
 						t.result++
+					} else {
+						kStart++
 					}
 				}
+			} else {
+				jStart++
 			}
 		}
 	}
